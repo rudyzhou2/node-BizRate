@@ -14,6 +14,9 @@ var app = express();
 
 //connect to mongoose
 mongoose.connect('mongodb://ratemetest:ratemetest@ds127139.mlab.com:27139/rateme')
+
+require('./config/passport');
+
 app.use(express.static('public'));
 
 app.engine('ejs', engine);
@@ -31,7 +34,11 @@ app.use(session({
   store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
-require('./routes/user')(app);
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes/user')(app, passport);
 
 app.listen(process.env.PORT || 3000, function(){
   util.log('App running on predefined port');
