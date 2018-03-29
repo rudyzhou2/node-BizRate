@@ -1,0 +1,27 @@
+{
+  "name": "rateme",
+  "version": "1.0.0",
+  "description": "a little business rating starter app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "Rudy Zhou",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.8",
+    "ejs-mate": "^2.3.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.12",
+    "passports": "^0.2.1"
+  },
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  }
+}
