@@ -73,7 +73,9 @@ module.exports = (app, passport) => {
 
       function(rand, user, callback){
         var smtpTransport = nodemailer.createTransport({
-          service: 'Gmail',
+          service: 'gmail',
+          secure: false,
+          ignoreTLS: true,
           auth: {
             user: secret.emailAuth.user,
             pass: secret.emailAuth.pass
@@ -102,8 +104,91 @@ module.exports = (app, passport) => {
       res.redirect('/forgot');
     })
   });
-}
 
+  app.get('/reset/:token', (req, res) => {
+    //check pw reset token and pw reset time in mongo db
+    User.findOne({'passwordResetToken': req.params.token, 'passwordResetExpires': {$gt: Date.now()}}, (err, user) => {
+      if(!user){
+        var errors = req.flash('error');
+        req.flash('error','Password reset token has expired or is invalid. Enter your email to get a new token');
+        return res.redirect('/forgot');
+      };
+      var errors = req.flash('error');
+      var success = req.flash('success');
+      res.render('user/reset', {title: 'Reset Your Password || RateMe', messages: errors, hasErrors: errors.length > 0, success: success, noErrors: success.length > 0});
+    });
+
+  });
+
+  app.post('/reset/:token', (req, res) => {
+    async.waterfall([
+      function(callback){
+        User.findOne({'passwordResetToken': req.params.token, 'passwordResetExpires': {$gt: Date.now()}}, (err, user) => {
+          if(!user){
+            var errors = req.flash('error');
+            req.flash('error','Password reset token has expired or is invalid. Enter your email to get a new token');
+            return res.redirect('/forgot');
+          };
+          //validate form passwords
+          req.checkBody('password', 'Password is required').notEmpty();
+          req.checkBody('password', 'Password must not be less than 5 chars').isLength({min:5});
+          req.check("password", "Password must contain at least 1 number").matches(/^(?=.*\d)(?=.*[a-z])[0-9a-z]{5,}$/, "i");
+          var errors = req.validationErrors();
+
+          if(req.password == req.body.cpassword){
+            if(errors){
+              var messages = [];
+              errors.forEach((error) => {
+                messages.push(error.msg)
+              });
+
+              var errors = req.flash('error');
+              res.redirect('/reset/'+req.params.token);
+            }else{
+              user.password = req.body.password;
+              user.passwordResetToken = undefined;
+              user.passwordResetToken = undefined;
+
+              user.save((err) => {
+                req.flash('success', 'Your password has been successfully updated.');
+                callback(err, user);
+              })
+            }
+          }else{
+            req.flash('error', 'Password and confirm password are not equal.');
+            res.redirect('/reset/'+req.params.token);
+          }
+        });
+      },
+        function(user, callback){
+          var smtpTransport = nodemailer.createTransport({
+            service: 'gmail',
+            secure: false,
+            ignoreTLS: true,
+            auth: {
+              user: secret.emailAuth.user,
+              pass: secret.emailAuth.pass
+            }
+          });
+
+          var mailOptions = {
+            to: user.email,
+            from: 'RateMe ' + '<' + secret.emailAuth.user + '>',
+            subject: 'RateMe Password has been reset',
+            text: 'This is a confirmation that the password has been updated for' + user.email
+          };
+
+          smtpTransport.sendMail(mailOptions, (err, response) => {
+            callback(err, user);
+
+            var errors = req.flash('error');
+            var success = req.flash('flash');
+            res.render('user/reset', {title: 'Reset Your Password || RateMe', messages: errors, hasErrors: errors.length > 0, success: success, noErrors: success.length > 0});
+          });
+        }
+    ])
+  });
+}
 /*
 function validate(req, res, next){
   req.checkBody('fullname', 'Full name is Required').notEmpty();
