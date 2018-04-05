@@ -9,7 +9,11 @@ var secret = require('../secret/secret');
 module.exports = (app, passport) => {
 
   app.get('/', function(req, res, next){
-    res.render('index', {title: 'Index || RateMe'});
+    if(req.session.cookie.originalMaxAge !== null){
+      res.redirect('/home')
+    }else{
+      res.render('index', {title: 'Index || RateMe'});
+    };
   });
 
   app.get('/signup', function(req, res, next){
@@ -31,6 +35,21 @@ module.exports = (app, passport) => {
   });
 
   app.post('/login', validate.loginValidate, passport.authenticate('local.login', {
+//    successRedirect: '/home',
+    failureRedirect: '/login',
+    failureFlash: true
+  }), (req, res) => {
+    if(req.body.autologin){ //if remember me checkbox is checked
+      req.session.cookie.maxAge = 14*24*60*60*1000; //2 weeks cookie age
+    }else{
+      req.session.cookie.expires = null;
+    }
+    res.redirect('/home');
+  });
+
+  app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/home',
     failureRedirect: '/login',
     failureFlash: true
@@ -187,6 +206,14 @@ module.exports = (app, passport) => {
         });
         }
     ])
+  });
+
+  app.get('/logout', (req, res) => {
+    //through passport mw
+    req.logout();
+    req.session.destroy((err) => {
+      res.redirect('/');
+    })
   });
 }
 /*

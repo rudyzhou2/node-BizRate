@@ -7,19 +7,15 @@
     </div>
    <br><br>
 
-   <div class="col-md-offset-4">
-         <a href="/auth/facebook" class="btn btn-block btn-social btn-facebook btn-lg">
-            <i class="fa fa-facebook"></i> Sign up with Facebook
-        </a>
-    </div><br>
-
-
    <div class="text-center reg_msg">
         <h2 class="fancy"><span>SIGN UP</span></h2>
    </div><br>
 
-    <div class="row signup">
+   <div class="text-center">
+         <a href="/auth/facebook" class="btn btn-block btn-social btn-facebook btn-lg">Sign up with Facebook</a>
+    </div>
 
+    <div class="row signup">
         <% if(hasErrors) { %>
           <% for(var i = 0; i < messages.length; i++) { %>
             <div class="alert alert-danger">
@@ -29,13 +25,11 @@
             </div>
         <% } %>
         <% } %>
-
-
         <form method="POST" class="" id="signupForm" action="/signup">
 
             <div class="row">
                 <div class="form-group col-xs-12 input_group">
-                    <input id="fullname" class="form-control" name="fullname" type="text" autocomplete="on" placeholder="FULLNAME" style="margin-top: 50px; margin-bottom:20px;" >
+                    <input id="fullname" class="form-control" name="fullname" type="text" autocomplete="on" placeholder="FULLNAME" style="margin-top: 30px; margin-bottom:10px;" >
                 </div>
             </div>
 

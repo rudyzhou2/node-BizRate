@@ -11,9 +11,17 @@ const MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var flash = require('connect-flash');
 var secret = require('./secret/secret');
+//enable ssl
+const https = require('https');
+const fs = require('fs');
 
 var app = express();
 
+//read ssl cert
+const options = {
+    cert: fs.readFileSync('./ssl/localhost.cer'),
+    key: fs.readFileSync('./ssl/localhost.key')
+};
 //connect to mongoose
 mongoose.Promise = global.Promise;
 mongoose.connect(secret.dbAuth.connString);
@@ -46,6 +54,7 @@ app.use(passport.session());
 
 require('./routes/user')(app, passport);
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 8080, function(){
   util.log('App running on predefined port');
 });
+https.createServer(options, app).listen(443);

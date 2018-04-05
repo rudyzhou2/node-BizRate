@@ -17,3 +17,24 @@
   background-color: #1e8bc3 !important;
   color: white !important;
 }
+
+.btn-facebook {
+    background: #3B5998;
+    border-radius: 0;
+    color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #263961;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.btn-facebook:link, .btn-facebook:visited {
+	color: #fff;
+}
+
+.btn-facebook:active, .btn-facebook:hover {
+    background: #263961;
+    color: #fff;
+}
