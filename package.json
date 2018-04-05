@@ -1,6 +1,7 @@
 {
-  "name": "rateme",
-  "version": "1.0.0",
+  "name": "BizRate",
+  "version": "0.1.0",
+  "private": true,
   "description": "a little business rating starter app",
   "main": "server.js",
   "scripts": {
@@ -30,6 +31,6 @@
     "passports": "^0.2.1"
   },
   "devDependencies": {
-    "nodeman": "^1.1.2"
+    "nodemon": "^1.17.2"
   }
 }
