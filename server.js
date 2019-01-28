@@ -57,4 +57,4 @@ require('./routes/user')(app, passport);
 app.listen(process.env.PORT || 8080, function(){
   util.log('App running on predefined port');
 });
-https.createServer(options, app).listen(443);
+https.createServer(options, app).listen(8443);
