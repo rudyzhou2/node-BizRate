@@ -1,3 +1,4 @@
 secret/secret.js
 node_modules/*
 ssl/*
+package-lock.json
