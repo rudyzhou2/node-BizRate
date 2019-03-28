@@ -14,7 +14,11 @@ var secret = require('./secret/secret');
 //enable ssl
 const https = require('https');
 const fs = require('fs');
-
+var mongoOpt = {
+            "sslValidate": false,
+            "sslKey": fs.readFileSync('./ssl/localhost.key'),
+            "sslCert": fs.readFileSync('./ssl/localhost.cer')
+          };
 var app = express();
 
 //read ssl cert
@@ -24,7 +28,7 @@ const options = {
 };
 //connect to mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect(secret.dbAuth.connString);
+mongoose.connect(secret.dbAuth.connString, mongoOpt);
 
 require('./config/passport');
 require('./secret/secret');
@@ -55,6 +59,6 @@ app.use(passport.session());
 require('./routes/user')(app, passport);
 
 app.listen(process.env.PORT || 8080, function(){
-  util.log('App running on predefined port');
+  util.log('App running on predefined port or default 8080 and 8443');
 });
-https.createServer(options, app).listen(443);
+https.createServer(options, app).listen(8443);

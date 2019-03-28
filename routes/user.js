@@ -56,7 +56,7 @@ module.exports = (app, passport) => {
   }));
 
   app.get('/home', function(req, res, next){
-    res.render('home', {title: 'Home || RateMe'});
+    res.render('home', {title: 'Home || RateMe', user: req.user});
   });
 
 //forgotten pw
