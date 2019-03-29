@@ -57,6 +57,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/user')(app, passport);
+require('./routes/movie')(app);
 
 app.listen(process.env.PORT || 8080, function(){
   util.log('App running on predefined port or default 8080 and 8443');
