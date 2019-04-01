@@ -5,6 +5,7 @@
 <div id="page-content-wrapper">
 
   <% include ../partials/navbar %>
+  <% include ../partials/footer %>
 
     <div class="container-fluid main_body">
      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
@@ -17,6 +18,13 @@
       </div>
       <br>
       <div class="bodyDiv">
+        <% if(noErrors) { %>
+            <div class="alert alert-success">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">
+              </a>
+         <%= success %>
+            </div>
+        <% } %>
         <h4>Add Movie</h4>
 
         <form method="POST" action="/movie/create">
