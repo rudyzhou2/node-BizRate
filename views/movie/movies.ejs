@@ -1,0 +1,48 @@
+<% layout('layout2') %>
+<div id="wrapper">
+  <% include ../partials/sidebar %>
+
+  <div id="page-content-wrapper">
+
+    <% include ../partials/navbar %>
+
+    <div class="container-fluid main_body">
+      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+      <div class="ul_links">
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="">Movie</a></li>
+          <li><a href="">Add Movie</a></li>
+        </ul>
+      </div>
+      <br>
+      <div class="bodyDiv">
+        <h4>Movies</h4>
+
+        <% for(var i=0;i < data.length; i++) {%>
+
+        <div class="col-xs-12 col-md-6 col-lg-4 movieListDiv">
+
+          <a href="">
+            <!--<img src="/images/<%= data[i].img %>" class="movieListItemLogo">
+  -->
+            <img src="http://placehold.it/100x100" class="movieListItemLogo">
+            <div class="movieListItemInfo">
+              <h5 class=""><%= data[i].name %></h5>
+              <span class="">
+                <i class="star"></i>
+                *****
+              </span><br>
+              <i clas="fa fa-building-o"><%= data[i].director %></i><br>
+              <i class="fa fa-map-marker"><%= data[i].country %></i>
+            </div>
+          </a>
+        </div>
+
+        <% } %>
+
+
+      </div>
+    </div>
+  </div>
+</div>

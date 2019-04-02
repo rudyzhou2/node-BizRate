@@ -1,0 +1,112 @@
+<% layout('layout2') %>
+
+<div id="wrapper">
+
+  <% include ../partials/sidebar %>
+
+  <div id="page-content-wrapper">
+    <% include ../partials/navbar %>
+    <div class="container-fluid main_body">
+      <div class="ul_links">
+        <ul>
+          <li><a href="/">Home</a></li> |
+          <li><a href="/movies">Movies</a></li> |
+          <li><a href="#">Movie Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="bodyDiv">
+        <h4 style="">Movie Profile</h4>
+
+        <div class="row mainDiv">
+          <div class="innerDiv">
+            <div class="col-md-3" style="margin-bottom:30px;">
+              <img src="http://placehold.it/270x270" width="270px" height="270px" alt="">
+              <h3>Avengers</h3>
+              <i class="fa fa-map-marker "> Canada</i><br>
+              <i class="fa fa-building-o "> Action</i><br><br><br>
+
+              <a href="" class="btn btn-success">Rate this movie</a><br><br>
+
+              <a href="" class="btn btn-info">Movie Owners</a><br><br>
+
+              <a href="" class="btn btn-primary">
+                Register me as an employee
+              </a><br><br>
+
+              <h3>Average Rating</h3>
+              <h5 class="star" data-score="5"></h5>
+              <p>Based on 5 review(s)</p>
+            </div>
+
+            <div class="col-md-9 colDiv">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="count">
+                    <h1>
+                      3
+                    </h1>
+                    <h2>Ratings</h2>
+                    <h3>Total ratings received</h3>
+                  </div>
+
+                </div>
+
+                <div class="col-md-4">
+                  <div class="count">
+                    <h1>
+                      5
+                    </h1>
+                    <h2>Total Stars</h2>
+                    <h3>Total stars received</h3>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="count">
+                    <h1>
+                      <span class="star" data-score="5"></span>
+                    </h1>
+                    <h2>Average Rating 3.5</h2>
+                    <h3>Based on 5 reviews</h3>
+                  </div>
+                </div><br><br>
+
+                <div class="col-md-12 header">
+                  <h2>Reviews (4)</h2>
+
+                  <div class="linkDiv">
+                    <a href="" class="btn btn-success">
+                      Write Review</a>
+                  </div>
+                </div>
+
+                <div class="col-md-12 reviewDiv">
+                  <div class="col-md-2">
+                    <img src="http://placehold.it/100x100" width="100px" height="100px">
+                  </div>
+
+                  <div class="col-md-8">
+                    <h1>
+                      <a href="#">Avengers</a> |
+                    Rudy Zhou
+                    </h1>
+                    <h2>Owner</h2>
+                    <p>Test Review Test</p>
+                  </div>
+
+                  <div class="col-md-2" style="width:150px">
+                    <h1>Rating</h1>
+                    <span class="star" data-score="6"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
