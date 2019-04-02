@@ -23,10 +23,9 @@
 
         <div class="col-xs-12 col-md-6 col-lg-4 movieListDiv">
 
-          <a href="">
-            <!--<img src="/images/<%= data[i].img %>" class="movieListItemLogo">
-  -->
-            <img src="http://placehold.it/100x100" class="movieListItemLogo">
+          <a href="/movie-profile/<%= data[i]._id %>">
+            <img src="/uploads/<%= data[i].image %>" class="movieListItemLogo">
+            <!-- <img src="http://placehold.it/100x100" class="movieListItemLogo"> -->
             <div class="movieListItemInfo">
               <h5 class=""><%= data[i].name %></h5>
               <span class="">

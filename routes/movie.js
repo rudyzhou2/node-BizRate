@@ -60,4 +60,27 @@ module.exports = (app) => {
     form.parse(req);
 
   })
+
+  app.get('/movies', (req, res) => {
+    Movie.find({}, (err, result) => {
+      console.log(result);
+      res.render('movie/movies', {
+        title: 'All Movies || RateMe',
+        user: req.user,
+        data: result
+      });
+      if (err) {
+        throw err;
+      }
+
+    });
+  })
+
+  app.get('/movie-profile/:id', (req, res) => {
+
+      res.render('movie/movie-profile', {
+        title: 'All Movies || RateMe',
+        user: req.user
+      });
+  })
 }
