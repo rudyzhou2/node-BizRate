@@ -2,13 +2,12 @@
 <div id="wrapper">
   <% include ../partials/sidebar %>
 
-<div id="page-content-wrapper">
+  <div id="page-content-wrapper">
 
-  <% include ../partials/navbar %>
-  <% include ../partials/footer %>
+    <% include ../partials/navbar %>
 
     <div class="container-fluid main_body">
-     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
       <div class="ul_links">
         <ul>
           <li><a href="/home">Home</a></li>
@@ -18,90 +17,92 @@
       </div>
       <br>
       <div class="bodyDiv">
-        <% if(noErrors) { %>
-            <div class="alert alert-success">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">
-              </a>
-         <%= success %>
-            </div>
-        <% } %>
         <h4>Add Movie</h4>
+        <% if(noErrors) { %>
+        <div class="alert alert-success">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">
+          </a>
+          <%= success %>
+        </div>
+        <% } %>
 
         <form method="POST" action="/movie/create">
 
-            <div class="form-group ">
-                <label for="">Movie Name</label>
-                <span id="errorMsg1"></span>
-                <input id="name" class="form-control" name="name" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Movie Name</label>
+            <span id="errorMsg1"></span>
+            <input id="name" class="form-control" name="name" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Director</label>
-                <span id="errorMsg2"></span>
-                <input id="director" class="form-control" name="director" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Director</label>
+            <span id="errorMsg2"></span>
+            <input id="director" class="form-control" name="director" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Writers</label>
-                <span id="errorMsg3"></span>
-                <input id="writers" class="form-control" name="writers" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Writers</label>
+            <span id="errorMsg3"></span>
+            <input id="writers" class="form-control" name="writers" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Country</label>
-                <span id="errorMsg4"></span>
-                <input id="country" class="form-control" name="country" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Country</label>
+            <span id="errorMsg4"></span>
+            <input id="country" class="form-control" name="country" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Type</label>
-                <span id="errorMsg5"></span>
-                <input id="type" class="form-control" name="type" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Type</label>
+            <span id="errorMsg5"></span>
+            <input id="type" class="form-control" name="type" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Cast</label>
-                <span id="errorMsg6"></span>
-                <input id="cast" class="form-control" name="cast" type="text" style="margin-bottom:20px;">
-            </div>
+          <div class="form-group ">
+            <label for="">Cast</label>
+            <span id="errorMsg6"></span>
+            <input id="cast" class="form-control" name="cast" type="text" style="margin-bottom:20px;">
+          </div>
 
-            <div class="form-group ">
-                <label for="">Movie Image</label><br>
+          <div class="form-group ">
+            <label for="">Movie Image</label><br>
 
-                <!-- add file modal implement logic -->
-                <button class="btn btn-lg" type="button" data-toggle="modal" data-target="#file">Add File</button>
-                <span id="completed"></span>
+            <!-- add file modal implement logic -->
+            <button class="btn btn-lg" type="button" data-toggle="modal" data-target="#file">Add Image</button>
+            <span id="completed"></span>
 
-                <div id="file" class="modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
-                                <div class="modal-title">Upload Image</div>
-                            </div>
+            <div id="file" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">Upload Image</div>
+                  </div>
 
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
-                                    <button class="btn btn-lg upload-btn" type="button">Upload Image</button>
-                                    <input type="file" class="form-control" name="upload" id="upload-input" style="display:none">
-                                </div>
-                            </div>
-                        </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="progress">
+                        <div class="progress-bar" role="progressbar"></div>
+                      </div>
+                      <button class="btn btn-lg upload-btn" type="button">Upload Image</button>
+                      <input type="file" class="form-control" name="upload" id="upload-input" style="display:none">
                     </div>
+                  </div>
                 </div>
-
+              </div>
             </div>
 
+          </div>
 
-            <div class="form-group">
-                <input type="submit" id="register" value="Add" class="form-control btn btn-primary" name="register" style="">
-            </div>
+
+          <div class="form-group">
+            <input type="submit" id="register" value="Add" class="form-control btn btn-primary" name="register" style="">
+          </div>
 
         </form>
       </div>
+    </div>
   </div>
 </div>
-</div>
+
+<script src="/js/validate.js"></script>

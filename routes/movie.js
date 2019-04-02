@@ -6,7 +6,12 @@ var Movie = require('../models/movie');
 module.exports = (app) => {
   app.get('/movie/create', (req, res) => {
     var success = req.flash('success');
-    res.render('movie/movie', {title: 'Movie Registration', user: req.user, success:success, noErrors: success.length > 0});
+    res.render('movie/movie', {
+      title: 'Movie Registration',
+      user: req.user,
+      success: success,
+      noErrors: success.length > 0
+    });
   });
 
   app.post('/movie/create', (req, res) => {
@@ -21,11 +26,11 @@ module.exports = (app) => {
     newMovie.image = req.body.upload;
 
     newMovie.save((err) => {
-      if(err){
+      if (err) {
         console.log(err);
       }
       console.log(newMovie);
-      req.flash('success', 'Movie data has been successfully added');
+      req.flash('success', 'Movie' + newMovie.name + ' has been successfully added');
       res.redirect('/movie/create');
     })
   });
@@ -37,10 +42,9 @@ module.exports = (app) => {
     form.on('file', (field, file) => {
       console.log('File' + file.name + ' being uploaded')
       fs.rename(file.path, path.join(form.uploadDir, file.name), (err) => {
-        if(err){
-          throw err
+        if (err) {
+          throw err;
         }
-
         console.log('File has been renamed');
       });
     });
