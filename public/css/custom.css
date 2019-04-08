@@ -367,3 +367,8 @@
     line-height: 30px;
     text-indent: 0px !important;
 }
+
+#star_rating img{
+  width: 40px;
+  height: 40px;
+}
