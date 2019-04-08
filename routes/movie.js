@@ -1,7 +1,9 @@
 var formidable = require('formidable');
 var path = require('path');
 var fs = require('fs');
+var async = require('async');
 var Movie = require('../models/movie');
+var User = require('../models/user');
 
 module.exports = (app) => {
   app.get('/movie/create', (req, res) => {
@@ -59,7 +61,7 @@ module.exports = (app) => {
 
     form.parse(req);
 
-  })
+  });
 
   app.get('/movies', (req, res) => {
     Movie.find({}, (err, result) => {
@@ -74,13 +76,71 @@ module.exports = (app) => {
       }
 
     });
-  })
+  });
 
   app.get('/movie-profile/:id', (req, res) => {
-
+    Movie.findOne({'_id': req.params.id}, (err, data) => {
       res.render('movie/movie-profile', {
         title: 'All Movies || RateMe',
-        user: req.user
+        user: req.user,
+        id: req.params.id,
+        data: data
       });
-  })
+    });
+  });
+
+  app.get('/movie/register-owner/:id', (req, res) => {
+    Movie.findOne({'_id': req.params.id}, (err, data) => {
+      res.render('movie/register-owner', {
+        title: 'Register Owner',
+        user: req.user,
+        data: data
+      });
+    });
+  });
+
+  app.post('/movie/register-owner/:id', (req, res, next) => {
+// parallel async result do not need to pass in result from prev function
+    async.parallel([
+      function(callback){
+        Movie.update({
+          '_id': req.params.id,
+          'owners.ownerID': {$ne: req.user._id},
+        },
+        {
+          $push: {owners: {ownerID: req.user._id,
+          ownerFullName: req.user.fullname,
+          ownerRole: req.body.owner}
+        }
+      }, (err, count) => {
+          if(err){
+            return next(err);
+          }
+          callback(err, count);
+        });
+      },
+
+      function(callback){
+        async.waterfall([
+          function(callback){
+            Movie.findOne({'_id': req.params.id}, (err,data) => {
+              callback(err,data);
+            });
+          },
+
+          function(data, callback){
+            User.findOne({'_id': req.user._id}, (err, result) => {
+              result.owner = req.body.owner;
+              result.movie.name = data.name;
+              result.movie.image = data.image;
+
+              result.save((err) => {
+                res.redirect("/home");
+              });
+            })
+          }
+        ]);
+      }
+    ]);
+  });
 }

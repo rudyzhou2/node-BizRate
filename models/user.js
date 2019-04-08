@@ -5,8 +5,8 @@ var userSchema = mongoose.Schema({
   fullname: {type: String, required: true},
   email: {type: String, required: true},
   password: {type: String},
-  role: {type: String, default: ''},
-  company: {
+  owner: {type: String, default: ''},
+  movie: {
     name: {type: String, default: ''},
     image: {type: String, default: ''},
   },

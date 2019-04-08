@@ -13,6 +13,12 @@ var movieSchema = mongoose.Schema({
     rateFullName: {type: String, default: ''}
   }],
 
+  owners: [{
+    ownerID: {type: String, default: ''},
+    ownerFullName: {type: String, default: ''},
+    ownerRole: {type: String, default: ''}
+  }],
+
   movieRating: [{
     movieName: {type: String, default: ''},
     userFullName: {type: String, default: ''},
